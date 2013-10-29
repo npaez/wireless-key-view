@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # WKeyView
-# Version: v0.2
+# Version: v0.3
 # Author: nestor.2005 [at] gmail.com
 #
 # Test 1234
@@ -15,7 +15,7 @@ import sys
 def help():
         print "\n########################################################################################################"
         print
-        print "[-] WKeyView v0.2"
+        print "[-] WKeyView v0.3"
         print 
         print "[-] After type the name of the wifi, your password is in row 15. Assigned to 'psk' (Pre-shared key)"
         print "[-] Example:\n\tpsk=testing\n\tIn this case your internet password is 'testing'.\n\n"
@@ -50,15 +50,15 @@ def ReadTxt(direc, name):
 
 
 #Pide comandos y los ejecuta de acuerdo a lo escrito por el usuario.
-def main():
+def main(direc):
         move = raw_input("To search the wifi, type 'show'. Or type 'help' for assistance.\n")
 
 
         if move == 'help':
                 help()
-                wifi(PATH)
+                wifi(direc)
         elif move == 'show':
-                wifi(PATH)
+                wifi(direc)
         else:
                 print "\n[-] Error reading '%s'. Invalid command." %move
                 exit()
@@ -77,5 +77,5 @@ if os.geteuid() != 0:
         print "You must have root privileges to run this script."
         sys.exit(1)
 
-main()
+main(PATH)
 
