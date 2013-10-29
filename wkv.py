@@ -21,6 +21,7 @@ def help():
 
 #Busca los archivos de wifi guardadas y printea las wifi encontradas
 def wifi():
+
 	files = os.listdir('/etc/NetworkManager/system-connections')
 	print "\nThe wifi found are:"
 	for element in files:
@@ -29,13 +30,19 @@ def wifi():
 
 #Lee el archivo y lo printea en pantalla
 def ReadTxt():
-    text=open('/etc/NetworkManager/system-connections/' + wifi,'r')
-    line=text.readline()
-    while line != "":
-        print "\t" + line
-        line=text.readline()
 
-    text.close()
+	try:
+		text=open('/etc/NetworkManager/system-connections/' + wifi,'r')
+		line=text.readline()
+		while line != "":
+			print "\t" + line
+			line=text.readline()
+		text.close()
+	except:
+		print "Error reading %s ESSID"%wifi
+
+	
+	
 
 move = raw_input("To search the wifi, type 'show'. Or type 'help' for assistance.\n")
 
