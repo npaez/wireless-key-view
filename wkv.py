@@ -1,29 +1,27 @@
 #!/usr/bin/python
 
 # WKeyView
-# Version: v0.1
-# Author: nestor.2005 [at] gmail.com
+# Version: ???
+# Author: un boludo
+
 
 import os
 import sys
 
 #Comprueba si sos root
 if os.geteuid() != 0:
-  print "You must have root privileges to run this script."
-  sys.exit(1)
+    print "You must have root privileges to run this script."
+    sys.exit(1)
 
 #Asistente WKeyView
 def help():
-	print "\n\tWKeyView v0.1"
+	print "\n\tWKeyView v?.?"
 	print "\n\tAfter type the name of the wifi, your password is in row 29. Assigned to the 'psk' (Pre-shared key)"
 	print "\tExample:\n\tpsk=testing\n\tIn this case your wifi's password is 'testing'.\n\n"
 
-#Busca los archivos de wifi guardadas.
-files = os.listdir('/etc/NetworkManager/system-connections')
-
-#Printea las wifis encontradas.
+#Busca los archivos de wifi guardadas y printea las wifi encontradas
 def wifi():
-	files
+	files = os.listdir('/etc/NetworkManager/system-connections')
 	print "\nThe wifi found are:"
 	for element in files:
 		print "\t~ " + element + "\n"
@@ -31,47 +29,23 @@ def wifi():
 
 #Lee el archivo y lo printea en pantalla
 def ReadTxt():
-  text = open('/etc/NetworkManager/system-connections/' + NameWifi,'r') #for 'NameWifi' see row 47
-  line = text.readline()
-  while line != "":
-    print "\t" + line
-    line = text.readline()
+    text=open('/etc/NetworkManager/system-connections/' + wifi,'r')
+    line=text.readline()
+    while line != "":
+        print "\t" + line
+        line=text.readline()
 
-  text.close()
+    text.close()
 
-NextMove = raw_input("To search the wifi, type 'show'. Or type 'help' for assistance.\n")
-while (NextMove != "help" or NextMove != "show"):
-	NextMove = raw_input("Ingrese un nuevo movimiento: ")
-	if NextMove == "help":
-		help()
-		break
-	if NextMove == "show":
-		break
+move = raw_input("To search the wifi, type 'show'. Or type 'help' for assistance.\n")
 
-
+if move == "help":
+	help()
 
 
 wifi()		
-NameWifi = raw_input("Enter the name of the wifi: ")
+wifi = raw_input("Enter the name of the wifi:")
 
-
-
-
-
-
-#Testea que el nombre sea valido- AH LISTO QUE VILLERO
-i = 0
-while i < len(files):
-  while NameWifi != files[i]:
-		i = i + 1
-		if i == len(files):
-			i = i - len(files)
-			print "Error: El nombre del archivo es incorrecto."
-			NameWifi = raw_input("Enter the name of the wifi: ")
-	else:
-		break
-
-
-print "\n\t######################### " + NameWifi + " #########################"
+print "\n\t######################### " + wifi + " #########################"
 ReadTxt()
-print "\t######################### " + NameWifi + " #########################"
+print "\t######################### " + wifi + " #########################"
