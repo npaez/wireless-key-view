@@ -1,14 +1,17 @@
 #!/usr/bin/python
-
-# WKeyView
-# Version: v0.3
-# Author: nestor.2005 [at] gmail.com
 #
-# Test 1234
+#
+# WKeyView
+#
+# Version: v0.3
+# Author: Nestor Paez
+# Email: nestor.2005 [at] gmail.com
+# Twitter: twitter.com/ntpaez
+#
 
 import os
 import sys
-from termcolor import colored
+from termcolor import colored #sudo pip install termcolor
 
 
 #Asistente WKeyView
@@ -16,9 +19,10 @@ def help():
         print "\n########################################################################################################"
         print
         print "[-] WKeyView v0.3"
+        print "[-] For now, this script only works on Linux. For more information contact the author."
         print 
-        print "[-] After type the name of the wifi, your password is in row 15. Assigned to 'psk' (Pre-shared key)"
-        print "[-] Example:\n\tpsk=testing\n\tIn this case your internet password is 'testing'.\n\n"
+        print "[-] Example:\n\t- psk=testing\t\t (In this case your internet password is 'testing')"
+        print "\t- psk=PUlp__FiCt10n\t (Here, the password is 'PUlp__FiCt10n')\n"
         print "[-] Errors:\n\t- 'Error reading FILE ESSID': It means that the name is invalid or the file does not exist."
         print "\t- 'Error reading MOVE. Invalid command': It means that the command that you type does not exist."
         print 
@@ -39,20 +43,22 @@ def ReadTxt(direc, name):
                 
                 text = open(direc + name,'r')
                 for lines in text:
-                        li = lines.strip()
-                        if li.startswith("psk"):
-                                print colored("ESSID PASSWORD: %s"%li,"green")
-                #Arreglá que crashee cuando el ESSID tenga espacio.
-                #AHLISTOQUEVILLEREADA
-                #i = 1
-                #line = text.readline()
-                #while line != "":
-                #        print "\t%d) "%i + line
-                 #       line = text.readline()
-                        
-                        #i = i + 1 #para numerar las lineas
+                        line2 = lines.strip()
+                        if line2.startswith("psk"):
+                                print "\n\t######################### " + name + " #########################"
+                                print ""
+                                print colored("\tESSID PASSWORD: %s"%line2,"red")
+                                print ""
+                                print "\t######################### " + name + " #########################"
                 text.close()
-        except:
+                
+                #lista.tito
+                #    line2 = lines.split(' ')
+                #    for line in line2:
+                #        if line.startswith("psk"):
+                #Arregla que crashee cuando el ESSID tenga espacio. (revisar)
+
+         except:
                 print "\t[-] Error reading '%s' ESSID"%name
                 exit()
 
@@ -73,19 +79,30 @@ def main(direc):
 
         NameWifi = raw_input("Enter the name of the file:")
         
-        print "\n\t######################### " + NameWifi + " #########################"
-        print ""
-        ReadTxt(PATH, NameWifi)
-        print "" 
-        print "\t######################### " + NameWifi + " #########################"
+        NameWifi = raw_input("Enter the name of the file: ")
+        ReadTxt(direc, NameWifi)
+        
+        NextMove = raw_input("\nDo you wanna do a new search? Y/N: ")
+        next(NextMove, direc)
 
 
-PATH = '/etc/NetworkManager/system-connections/'
+#Mini bucle para nueva busqueda
+def next(move, direc):
+        while move == "Y":
+                main(direc)
+        if move == "N":
+                exit()
+        else:
+                print "\n[-] Error reading '%s'. Invalid command." %move
+                exit()
+
 
 #Comprueba si sos root
 if os.geteuid() != 0:
         print "You must have root privileges to run this script."
         sys.exit(1)
 
+
+PATH = '/etc/NetworkManager/system-connections/'
 main(PATH)
 
