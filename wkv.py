@@ -40,7 +40,6 @@ def wifi(direc):
 #Lee el archivo y lo printea en pantalla
 def ReadTxt(direc, name):
         try:
-                
                 text = open(direc + name,'r')
                 for lines in text:
                         line2 = lines.strip()
@@ -67,7 +66,6 @@ def ReadTxt(direc, name):
 def main(direc):
         move = raw_input("To search the wifi, type 'show'. Or type 'help' for assistance.\n")
 
-
         if move == 'help':
                 help()
                 wifi(direc)
@@ -77,8 +75,6 @@ def main(direc):
                 print "\n[-] Error reading '%s'. Invalid command." %move
                 exit()
 
-        NameWifi = raw_input("Enter the name of the file:")
-        
         NameWifi = raw_input("Enter the name of the file: ")
         ReadTxt(direc, NameWifi)
         
