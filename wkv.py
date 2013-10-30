@@ -6,9 +6,9 @@
 #
 # Test 1234
 
-
 import os
 import sys
+from termcolor import colored
 
 
 #Asistente WKeyView
@@ -36,13 +36,21 @@ def wifi(direc):
 #Lee el archivo y lo printea en pantalla
 def ReadTxt(direc, name):
         try:
-                i = 1
+                
                 text = open(direc + name,'r')
-                line = text.readline()
-                while line != "":
-                        print "\t%d) "%i + line
-                        line = text.readline()
-                        i = i + 1 #para numerar las lineas
+                for lines in text:
+                        li = lines.strip()
+                        if li.startswith("psk"):
+                                print colored("ESSID PASSWORD: %s"%li,"green")
+                #Arreglá que crashee cuando el ESSID tenga espacio.
+                #AHLISTOQUEVILLEREADA
+                #i = 1
+                #line = text.readline()
+                #while line != "":
+                #        print "\t%d) "%i + line
+                 #       line = text.readline()
+                        
+                        #i = i + 1 #para numerar las lineas
                 text.close()
         except:
                 print "\t[-] Error reading '%s' ESSID"%name
@@ -66,7 +74,9 @@ def main():
         NameWifi = raw_input("Enter the name of the file:")
         
         print "\n\t######################### " + NameWifi + " #########################"
+        print ""
         ReadTxt(PATH, NameWifi)
+        print "" 
         print "\t######################### " + NameWifi + " #########################"
 
 
