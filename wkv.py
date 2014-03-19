@@ -19,7 +19,7 @@ def help():
         print 
         print "[-] WKeyView"
         print "[-] For the moment, this script is only available on Linux. For more information contact the author."
-        print "[-] E-mail: nestor.2005 [at] gmail.com
+        print "[-] E-mail: nestor.2005 [at] gmail.com"
         print 
         print "[-] Examples:"
         print "         - psk=testing                           (In this case your internet password is 'testing')"
